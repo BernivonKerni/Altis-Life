@@ -14,6 +14,7 @@ _vehicle = (call compile format["%1",_vehicle]) select 0;
 _vid = lbValue[2802,(lbCurSel 2802)];
 _pid = getPlayerUID player;
 _unit = player;
+if (life_action_inUse) exitWith {}; // prevent duping
 
 if(isNil "_vehicle") exitWith {hint localize "STR_Garage_Selection_Error"};
 
@@ -24,4 +25,5 @@ if(_price == -1) then {_price = 1000;} else {_price = (__GETC__(life_garage_sell
 hint format[localize "STR_Garage_SoldCar",[_price] call life_fnc_numberText];
 life_atmcash = life_atmcash + _price;
 
+life_action_inUse = false; // duping fix
 closeDialog 0;
